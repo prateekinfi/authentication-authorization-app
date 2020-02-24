@@ -1,16 +1,17 @@
 const mongoose = require('mongoose');
 const config = require("config");
+const jwt = require("jsonwebtoken");
 
 
 const userSchema = new mongoose.Schema(
     {
-firstName : {
+firstname : {
     type: String,
     required: true,
     minlength: 2,
     maxlength: 50
 },
-lastName :{
+lastname :{
     type: String,
     required: true,
     minlength: 2,
@@ -44,12 +45,11 @@ password:{
 role: {
     type: String,
     required: true,
-    minlength: 5,
-    maxlength: 50
+    default : "user"
 }
     });
 
-const User= mongoose.model('User',userSchema);
+
 
 userSchema.methods.generateAuthToken = function() {
     const token = jwt.sign(
@@ -63,6 +63,6 @@ userSchema.methods.generateAuthToken = function() {
     );
     return token;
   };
-  
+  const User= mongoose.model('User',userSchema);
 
   module.exports.User = User

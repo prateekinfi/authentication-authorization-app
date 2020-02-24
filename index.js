@@ -1,10 +1,21 @@
 const express= require("express")
 const app = express();
 const config = require("config");
+const userroutes = require("./routes/user")
+const auth = require("./routes/auth")
+const mongoose = require('mongoose');
+const parser = require('body-parser');
 
+app.use(parser.json());
+app.use(parser.urlencoded({
+  extended: true
+}));
 
 app.use("/",userroutes);
+app.use("/",auth);
 
+const db = config.get('db');
+mongoose.connect(db).then(() => console.log(`Connected to ${db}...`));
 
 const port = process.env.PORT || config.get("port");
 

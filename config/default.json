@@ -1,4 +1,5 @@
 {
     "jwtPrivateKey" : "secretkey123",
+    "db": "mongodb://localhost/moltrex",
     "port":"4000"
 }
