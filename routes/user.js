@@ -2,7 +2,7 @@ const express= require("express")
 const router =express.Router();
 const _ = require("lodash");
 const authenticated =require(".\middlewares\authentication.js");
-const authorized =require(".\middlewares\authorization.js");
+const admin =require(".\middlewares\authorization-admin.js");
 const {User} = require('../models/user');
 const bcrypt = require('bcrypt');
 
@@ -16,7 +16,7 @@ app.get("/me", authenticated ,async (req,res,)=>{
 });
 
 //get all users
-app.get("/users", authenticated , authorized ,async (req,res,)=>{
+app.get("/users", authenticated , admin ,async (req,res,)=>{
 
     let user= await User.find().select("-__v").sort("name");
     res.status(200).send(users);

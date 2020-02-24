@@ -1,11 +1,12 @@
 const express= require("express")
 const app = express();
+const config = require("config");
+
 
 app.use("/",userroutes);
 
 
-const port = 3030;
-//process.env.PORT || config.get("port");
+const port = process.env.PORT || config.get("port");
 
 
 const server = app.listen(port, () =>
