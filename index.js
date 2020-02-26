@@ -1,7 +1,8 @@
 const express= require("express")
 const app = express();
 const config = require("config");
-const userroutes = require("./routes/user")
+const user = require("./routes/user")
+const users= require("./routes/users")
 const auth = require("./routes/auth")
 const mongoose = require('mongoose');
 const parser = require('body-parser');
@@ -11,8 +12,10 @@ app.use(parser.urlencoded({
   extended: true
 }));
 
-app.use("/",userroutes);
-app.use("/",auth);
+app.use("/user",user);
+app.use("/login",auth);
+app.use("/users",users);
+
 
 const db = config.get('db');
 mongoose.connect(db).then(() => console.log(`Connected to ${db}...`));
